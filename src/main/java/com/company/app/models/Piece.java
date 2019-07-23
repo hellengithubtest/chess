@@ -1,49 +1,53 @@
 package com.company.app.models;
 
-import com.company.app.Board;
 import com.company.app.Cell;
-import com.company.app.Player;
 import com.company.app.PlayerColor;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Piece {
     private Cell currentCell;
-    protected ArrayList<Cell> availableMoves;
-    private boolean available;
     public PlayerColor color;
 
-    public Piece(boolean available, Cell currentCell, PlayerColor color){
+    public Piece(Cell currentCell, PlayerColor color){
        super();
-       this.available = available;
        this.currentCell = currentCell;
        this.color = color;
-    }
-
-
-    public boolean isAvailable() {
-        return available;
-    }
-
-    public void setAvailable(boolean available) {
-        this.available = available;
     }
 
     public Cell getCurrentCell() {
         return currentCell;
     }
 
-    public boolean isValid(Board board, int fromX, int fromY, int toX, int toY) {
-        return true;
+    public void setCurrentCell(Cell nextCell) {
+        this.currentCell = nextCell;
     }
-
-    public boolean validMoves() {
+    public boolean isValid(Cell cell) {
         return true;
     }
     public PlayerColor getColor() {
         return this.color;
     }
-    public ArrayList<Cell> getAvailableMoves() {
+
+    public boolean isOpponent(Piece piece) {
+        return piece != null && this.color != piece.color;
+    }
+    public List<Cell> getAvailableMoves(List<Cell> allCell) {
+        ArrayList<Cell> availableMoves = new ArrayList<Cell>();
+        int size = allCell.size();
+        for (int i = 0; i < size; i++) {
+            if(isValid(allCell.get(i))){
+                availableMoves.add(allCell.get(i));
+            }else {
+                continue;
+            }
+        }
+
         return availableMoves;
+    }
+
+    public String toString() {
+        return "Current cell: " + currentCell + " Color: " + color;
     }
 }

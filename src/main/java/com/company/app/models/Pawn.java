@@ -8,16 +8,32 @@ import java.util.List;
 
 public class Pawn extends Piece {
 
-    public Pawn(boolean available, Cell cell, PlayerColor color) {
-        super(available, cell, color);
+    public Pawn(Cell cell, PlayerColor color) {
+        super(cell, color);
     }
 
     @Override
-    public boolean isValid(Board board, int fromX, int fromY, int toX, int toY) {
-        boolean condition1 = (fromX == toX);
-        boolean condition2 = (fromY >= 2 && toY == fromY + 1) || (fromY == 2 && toY == fromY + 2);
+    public boolean isValid(Cell cell) {
+        boolean condition1 = (getCurrentCell().getX() == cell.getX());
+        boolean condition2 = (getCurrentCell().getY() >= 2 && cell.getY() == getCurrentCell().getY() + 1) || (getCurrentCell().getY() == 2 && cell.getY() == getCurrentCell().getY() + 2);
         return condition1 && condition2;
     }
 
+/*    public List<Cell> getAvailableMoves(List<Cell> allCell) {
+        for (int i = 0; i < allCell.size(); i++) {
+            if(isValid(allCell.get(i))){
+                continue;
+            }else {
+                allCell.remove(i);
+            }
+            return allCell;
+        }
+        return availableMoves;
+    }*/
+
+    public String toString() {
+
+        return "P " + this.color;
+    }
 
 }

@@ -4,43 +4,35 @@ import com.company.app.Board;
 import com.company.app.Cell;
 import com.company.app.PlayerColor;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Rook extends Piece {
 
-    public Rook(boolean available, Cell cell, PlayerColor color) {
-        super(available, cell, color);
+    public Rook(Cell cell, PlayerColor color) {
+        super(cell, color);
     }
 
     @Override
-    public boolean isValid(Board board, int fromX, int fromY, int toX, int toY) {
-        boolean condition1 = (fromX == toX);
-        boolean condition2 = (fromY == toY);
+    public boolean isValid(Cell cell) {
+        boolean condition1 = (getCurrentCell().getX() == cell.getX());
+        boolean condition2 = (getCurrentCell().getY() == cell.getY());
         return condition1 || condition2;
     }
 
     //ArrayList<Cell> availableMoves =  new ArrayList<Cell>();
-    public void calculateMoves(Board board) {
-        Cell[] cells = new Cell[] {
-                new Cell(-1, 2),
-                new Cell(1, 2),
-                new Cell(-2, 1),
-                new Cell(2, 1),
-                new Cell(-2, -1),
-                new Cell(2, 1),
-                new Cell(-1, -2),
-                new Cell(1, -2),
-        };
-        for (Cell p: cells) {
-            int x = p.getX() + getCurrentCell().getX();
-            int y = p.getY() + getCurrentCell().getY();
-            if(board.isValidBorders(x, y)){
-                if(board.getPieceAt(x, y).getColor() != this.color) {
-                    availableMoves.add(new Cell(x, y));
-                }
+/*    public List<Cell> getAvailableMoves(List<Cell> allCell) {
+        for (int i = 0; i < allCell.size(); i++) {
+            if(isValid(allCell.get(i))){
+                continue;
+            }else {
+                allCell.remove(i);
             }
+            return allCell;
         }
-        this.availableMoves = availableMoves;
+        return availableMoves;
+    }*/
+    public String toString() {
+        return "R " + this.color;
     }
 
 }

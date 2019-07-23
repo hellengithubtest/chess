@@ -4,17 +4,34 @@ import com.company.app.Board;
 import com.company.app.Cell;
 import com.company.app.PlayerColor;
 
+import java.util.List;
+
 public class Queen extends Piece {
 
-    public Queen(boolean available, Cell cell, PlayerColor color) {
-        super(available, cell, color);
+    public Queen(Cell cell, PlayerColor color) {
+        super(cell, color);
     }
 
     @Override
-    public boolean isValid(Board board, int fromX, int fromY, int toX, int toY) {
-        boolean condition1 = (fromX == toX || fromY == toY);
-        boolean condition2 = (Math.abs(fromX - toX) == Math.abs(fromY - toY));
+    public boolean isValid(Cell cell) {
+        boolean condition1 = (getCurrentCell().getX() == cell.getX() || getCurrentCell().getY() == cell.getY());
+        boolean condition2 = (Math.abs(getCurrentCell().getX() - cell.getX()) == Math.abs(getCurrentCell().getY() - cell.getY()));
         return condition1 || condition2;
     }
 
+/*    public List<Cell> getAvailableMoves(List<Cell> allCell) {
+        for (int i = 0; i < allCell.size(); i++) {
+            if(isValid(allCell.get(i))){
+                continue;
+            }else {
+                allCell.remove(i);
+            }
+            return allCell;
+        }
+        return availableMoves;
+    }*/
+
+    public String toString() {
+        return "Q " + this.color;
+    }
 }
