@@ -10,7 +10,7 @@ public class Piece {
     private Cell currentCell;
     public PlayerColor color;
 
-    public Piece(Cell currentCell, PlayerColor color){
+    public Piece(Cell currentCell, PlayerColor color) {
        super();
        this.currentCell = currentCell;
        this.color = color;

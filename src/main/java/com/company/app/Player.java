@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 public class Player {
-    public PlayerColor color;
+    public final PlayerColor color;
     private List<Piece> pieces = new ArrayList<Piece>();
 
     public Player(PlayerColor color){

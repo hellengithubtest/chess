@@ -2,6 +2,7 @@ package com.company.app;
 
 import com.company.app.models.Piece;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -17,30 +18,37 @@ public class ChessGame {
         }
 
         public void processTurn(Player player) {
+            Random random = new Random();
 
             player.checkPieces(board.getDeletedPeaces());
-            Random random = new Random();
-            Piece randomPiece = player.getRandomPiece();
-            List<Cell> validSteps = board.getSquareAround(randomPiece);
-            if(validSteps.size() == 0) {
-                System.out.println("the piece is blocked");
-            }
-            System.out.println("Random: " + randomPiece.getCurrentCell() + " ");
-            System.out.println("List of valid: " + validSteps );
-/*            player.checkPieces(board.getDeletedPeaces());
+            int count = player.getPieces().size();
+            List<Cell> availableAround = new ArrayList<Cell>();
             List<Cell> validSteps = new ArrayList<Cell>();
-            Random random = new Random();
-            while(validSteps.isEmpty()) {
-                List<Cell> allCell = board.getListOfOther(player.color);
-                Piece randomPiece = player.getRandomPiece();
-                Cell someCell = randomPiece.getCurrentCell();
-                System.out.println("Current piece " + randomPiece + "coord" + randomPiece.getCurrentCell());
-                validSteps = randomPiece.getAvailableMoves(allCell);
+            Piece randomPiece = null;
+
+
+            do {
+                randomPiece = player.getRandomPiece();
+
+                System.out.println("Random piece " + randomPiece + " " + randomPiece.getCurrentCell());
+
+                availableAround = board.getSquareAround(randomPiece);
+
+                System.out.println("available around " + availableAround);
+
+                validSteps = randomPiece.getAvailableMoves(availableAround);
+                System.out.println("valid steps " + validSteps);
+                count--;
+
+            } while (count > 0 & validSteps.size() == 0);
+
+            if(count <= 0 & validSteps.size() == 0){
+                board.setWin(true); //
+            } else {
+                Cell nextCell = validSteps.get(random.nextInt(validSteps.size()));
+                board.executeMove(randomPiece, nextCell);
+                System.out.println("The piece " + randomPiece + " Move to " + nextCell);
             }
-            System.out.println("List of valid steps" + validSteps);
-            Cell nextCell = validSteps.get(random.nextInt(validSteps.size()));*/
-
-
 
         }
 

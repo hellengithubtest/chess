@@ -1,10 +1,7 @@
 package com.company.app.models;
 
-import com.company.app.Board;
 import com.company.app.Cell;
 import com.company.app.PlayerColor;
-
-import java.util.List;
 
 public class Pawn extends Piece {
 
@@ -14,8 +11,12 @@ public class Pawn extends Piece {
 
     @Override
     public boolean isValid(Cell cell) {
+        System.out.println("current x: " + getCurrentCell().getX());
+        System.out.println("current y: " + getCurrentCell().getY());
+
         boolean condition1 = (getCurrentCell().getX() == cell.getX());
-        boolean condition2 = (getCurrentCell().getY() >= 2 && cell.getY() == getCurrentCell().getY() + 1) || (getCurrentCell().getY() == 2 && cell.getY() == getCurrentCell().getY() + 2);
+        boolean condition2 = (Math.abs(getCurrentCell().getY() - cell.getY()) <= 2);
+        boolean condition3 =  (getCurrentCell().getY() == 2 && cell.getY() == getCurrentCell().getY() + 2);
         return condition1 && condition2;
     }
 

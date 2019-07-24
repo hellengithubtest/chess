@@ -3,8 +3,6 @@ package com.company.app.models;
 import com.company.app.Cell;
 import com.company.app.PlayerColor;
 
-import java.util.List;
-
 public class Knight extends Piece {
 
     public Knight(Cell cell, PlayerColor color) {
@@ -13,8 +11,9 @@ public class Knight extends Piece {
 
     @Override
     public boolean isValid(Cell cell) {
-        double condition = Math.pow((getCurrentCell().getX() - cell.getX()), 2.0) + Math.pow((getCurrentCell().getY() - cell.getY()), 2.0);
-        return condition == 5;
+        boolean condition1 = Math.abs(getCurrentCell().getX() - cell.getX()) == 1  & Math.abs(getCurrentCell().getY() - cell.getY()) == 2;
+        boolean condition2 = Math.abs(getCurrentCell().getX() - cell.getX()) == 2  & Math.abs(getCurrentCell().getY() - cell.getY()) == 1;
+        return condition1 || condition2;
     }
     /*
     can leap over
@@ -34,6 +33,6 @@ public class Knight extends Piece {
     }*/
 
     public String toString() {
-        return "K " + this.color;
+        return "H " + this.color;
     }
 }
