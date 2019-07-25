@@ -1,40 +1,41 @@
 package com.company.app.models;
 
+import com.company.app.Board;
 import com.company.app.Cell;
 import com.company.app.PlayerColor;
 
-public class Pawn extends Piece {
+import java.util.ArrayList;
+import java.util.List;
+
+public final class Pawn extends Piece {
 
     public Pawn(Cell cell, PlayerColor color) {
         super(cell, color);
     }
 
     @Override
-    public boolean isValid(Cell cell) {
-        System.out.println("current x: " + getCurrentCell().getX());
-        System.out.println("current y: " + getCurrentCell().getY());
+    public List<Cell> availableMoves(Board board) {
+        List<Cell> available = new ArrayList<Cell>();
+        List<Cell> valid = new ArrayList<Cell>();
 
-        boolean condition1 = (getCurrentCell().getX() == cell.getX());
-        boolean condition2 = (Math.abs(getCurrentCell().getY() - cell.getY()) <= 2);
-        boolean condition3 =  (getCurrentCell().getY() == 2 && cell.getY() == getCurrentCell().getY() + 2);
-        return condition1 && condition2;
+        available.add(new Cell(this.getCurrentCell().getX() + 1, this.getCurrentCell().getY()));
+        available.add(new Cell(this.getCurrentCell().getX() - 1, this.getCurrentCell().getY()));
+        available.add(new Cell(this.getCurrentCell().getX(), this.getCurrentCell().getY() + 1));
+        available.add(new Cell(this.getCurrentCell().getX(), this.getCurrentCell().getY() - 1));
+
+        for (Cell cell : available) {
+            int nextX = cell.getX();
+            int nextY = cell.getY();
+            while (!board.isNotWithinTheBorders(nextX, nextY) && board.getBoardPieces()[nextX][nextY] == null) {
+                valid.add(cell);
+                break;
+            }
+        }
+        return valid;
     }
 
-/*    public List<Cell> getAvailableMoves(List<Cell> allCell) {
-        for (int i = 0; i < allCell.size(); i++) {
-            if(isValid(allCell.get(i))){
-                continue;
-            }else {
-                allCell.remove(i);
-            }
-            return allCell;
-        }
-        return availableMoves;
-    }*/
-
     public String toString() {
-
-        return "P " + this.color;
+        return "P " + this.getColor();
     }
 
 }

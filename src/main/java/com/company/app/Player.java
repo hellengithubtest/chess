@@ -6,17 +6,21 @@ import java.util.List;
 import java.util.Random;
 
 public class Player {
-    public final PlayerColor color;
+    private final PlayerColor color;
     private List<Piece> pieces = new ArrayList<Piece>();
 
-    public Player(PlayerColor color){
+    public Player(PlayerColor color) {
         super();
         this.color = color;
         initializePieces();
     }
 
-    public List<Piece> getPieces(){
+    public List<Piece> getPieces() {
         return pieces;
+    }
+
+    public PlayerColor getColor() {
+        return this.color;
     }
 
     public void initializePieces() {
@@ -55,9 +59,9 @@ public class Player {
         return pieces.get(random.nextInt(pieces.size()));
     }
 
-    public void checkPieces(ArrayList<Piece> deleted) {
-        for(int i = 0; i < pieces.size(); i++) {
-            if(deleted.contains(pieces.get(i))){
+    public void checkAlivePieces(ArrayList<Piece> deleted) {
+        for (int i = 0; i < pieces.size(); i++) {
+            if (deleted.contains(pieces.get(i))) {
                 pieces.remove(i);
             }
         }

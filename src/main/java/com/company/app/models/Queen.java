@@ -1,34 +1,55 @@
 package com.company.app.models;
 
+import com.company.app.Board;
 import com.company.app.Cell;
 import com.company.app.PlayerColor;
 
-public class Queen extends Piece {
+import java.util.ArrayList;
+import java.util.List;
+
+public final class Queen extends Piece {
 
     public Queen(Cell cell, PlayerColor color) {
         super(cell, color);
     }
 
     @Override
-    public boolean isValid(Cell cell) {
-        boolean condition1 = (getCurrentCell().getX() == cell.getX() || getCurrentCell().getY() == cell.getY());
-        boolean condition2 = (Math.abs(getCurrentCell().getX() - cell.getX()) == Math.abs(getCurrentCell().getY() - cell.getY()));
-        return condition1 || condition2;
+    public List<Cell> availableMoves(Board board) {
+        List<Cell> available = new ArrayList<Cell>();
+        List<Cell> valid = new ArrayList<Cell>();
+        available.add(new Cell(this.getCurrentCell().getX() + 1, this.getCurrentCell().getY()));
+        available.add(new Cell(this.getCurrentCell().getX() - 1, this.getCurrentCell().getY()));
+        available.add(new Cell(this.getCurrentCell().getX(), this.getCurrentCell().getY() + 1));
+        available.add(new Cell(this.getCurrentCell().getX(), this.getCurrentCell().getY() - 1));
+
+        available.add(new Cell(this.getCurrentCell().getX() + 1, this.getCurrentCell().getY() + 1));
+        available.add(new Cell(this.getCurrentCell().getX() - 1, this.getCurrentCell().getY() + 1));
+        available.add(new Cell(this.getCurrentCell().getX() - 1, this.getCurrentCell().getY() - 1));
+        available.add(new Cell(this.getCurrentCell().getX() + 1, this.getCurrentCell().getY() - 1));
+
+
+        for (Cell cell : available) {
+            int nextX = cell.getX();
+            int nextY = cell.getY();
+            while (!board.isNotWithinTheBorders(nextX, nextY) && board.getBoardPieces()[nextX][nextY] == null) {
+                valid.add(new Cell(nextX, nextY));
+                int diffX = this.getCurrentCell().getX() - cell.getX();
+                int diffY = this.getCurrentCell().getY() - cell.getY();
+                nextX = nextX - diffX;
+                nextY = nextY - diffY;
+            }
+            if (board.isNotWithinTheBorders(nextX, nextY)) {
+                continue;
+            } else if (board.getBoardPieces()[nextX][nextY].getColor() == getColor() || board.getBoardPieces()[nextX][nextY].getClass().getSimpleName().equals("King")) {
+                continue;
+            } else {
+                valid.add(new Cell(nextX, nextY));
+            }
+        }
+        return valid;
     }
 
-/*    public List<Cell> getAvailableMoves(List<Cell> allCell) {
-        for (int i = 0; i < allCell.size(); i++) {
-            if(isValid(allCell.get(i))){
-                continue;
-            }else {
-                allCell.remove(i);
-            }
-            return allCell;
-        }
-        return availableMoves;
-    }*/
-
     public String toString() {
-        return "Q " + this.color;
+        return "Q " + this.getColor();
     }
 }

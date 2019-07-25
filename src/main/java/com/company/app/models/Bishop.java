@@ -1,9 +1,13 @@
 package com.company.app.models;
 
+import com.company.app.Board;
 import com.company.app.Cell;
 import com.company.app.PlayerColor;
 
-public class Bishop extends Piece {
+import java.util.ArrayList;
+import java.util.List;
+
+public final class Bishop extends Piece {
 
     public Bishop(Cell cell, PlayerColor color) {
 
@@ -11,27 +15,41 @@ public class Bishop extends Piece {
     }
 
     @Override
-    public boolean isValid(Cell cell) {
+    public List<Cell> availableMoves(Board board) {
+        List<Cell> available = new ArrayList<Cell>();
+        List<Cell> valid = new ArrayList<Cell>();
 
-        int condition1 = Math.abs(getCurrentCell().getX() - cell.getX());
-        int condition2 = Math.abs(getCurrentCell().getY() - cell.getY());
-        return condition1 == condition2 ? true : false;
+        int bishopX = this.getCurrentCell().getX();
+        int bishopY = this.getCurrentCell().getY();
+
+        available.add(new Cell(bishopX + 1, bishopY + 1));
+        available.add(new Cell(bishopX - 1, bishopY + 1));
+        available.add(new Cell(bishopX - 1, bishopY - 1));
+        available.add(new Cell(bishopX + 1, bishopY - 1));
+
+        for (Cell cell : available) {
+            int nextX = cell.getX();
+            int nextY = cell.getY();
+
+            while (!board.isNotWithinTheBorders(nextX, nextY) && board.getBoardPieces()[nextX][nextY] == null) { //exp false
+                valid.add(new Cell(nextX, nextY));
+                int diffX = bishopX - cell.getX();
+                int diffY = bishopY - cell.getY();
+                nextX = nextX - diffX;
+                nextY = nextY - diffY;
+            }
+            if (board.isNotWithinTheBorders(nextX, nextY)) {
+                continue;
+            } else if (board.getBoardPieces()[nextX][nextY].getColor() == getColor() || board.getBoardPieces()[nextX][nextY].getClass().getSimpleName().equals("King")) {
+                continue;
+            } else {
+                valid.add(new Cell(nextX, nextY));
+            }
+        }
+        return valid;
     }
 
-/*    public List<Cell> getAvailableMoves(List<Cell> allCell) {
-        for (int i = 0; i < allCell.size(); i++) {
-            if(isValid(allCell.get(i))){
-                continue;
-            }else {
-                allCell.remove(i);
-            }
-            return allCell;
-        }
-
-        return availableMoves;
-    }*/
-
     public String toString() {
-        return "B " + this.color;
+        return "B " + this.getColor();
     }
 }

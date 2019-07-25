@@ -1,6 +1,6 @@
 package com.company.app;
 
-public class Cell {
+public final class Cell {
     private int x;
     private int y;
 
