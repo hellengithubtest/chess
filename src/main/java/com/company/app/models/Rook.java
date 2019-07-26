@@ -48,6 +48,11 @@ public final class Rook extends Piece {
     }
 
     public String toString() {
+/*        if(this.getColor() == PlayerColor.WHITE){
+            return "♖";
+        } else {
+            return "♜";
+        }*/
         return "R " + this.getColor();
     }
 }
