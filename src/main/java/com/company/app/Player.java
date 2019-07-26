@@ -43,6 +43,7 @@ public class Player {
 
     public Piece getRandomPiece() {
         Random random = new Random();
+
         return pieces.get(random.nextInt(pieces.size()));
     }
 
