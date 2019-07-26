@@ -30,7 +30,8 @@ public class Board {
     }
 
     public void putAllPiecesFromPlayer(Player player) {
-        for (Piece piece : player.getPieces()) {
+        for (int i = 0; i < player.getPieces().size(); i++) {
+            Piece piece = player.getPieces().get(i);
             boardPieces[piece.getCurrentCell().getX()][piece.getCurrentCell().getY()] = piece;
         }
     }

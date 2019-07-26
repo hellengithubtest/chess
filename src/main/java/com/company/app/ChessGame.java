@@ -20,6 +20,7 @@ public class ChessGame {
                 board.setWin(true);
                 return true;
             }
+            board.printBoard();
             int count = player.getPieces().size();
 
             List<Cell> validSteps = new ArrayList<Cell>();
@@ -31,8 +32,8 @@ public class ChessGame {
                 while (validSteps.size() != 0){
                     System.out.println(validSteps.size());
                     Cell nextCell = validSteps.get(random.nextInt(validSteps.size()));
-                    board.executeMove(randomPiece, nextCell);
                     System.out.println("Random piece " + randomPiece + " " + randomPiece.getCurrentCell() + " valid steps " + validSteps);
+                    board.executeMove(randomPiece, nextCell);
                     System.out.println("The piece " + randomPiece + " Move to " + nextCell);
                     return true;
                 }
@@ -64,7 +65,12 @@ public class ChessGame {
             board = new Board();
 
             board.putAllPiecesFromPlayer(player1);
+            System.out.println(player1.getPieces());
+
             board.putAllPiecesFromPlayer(player2);
+            System.out.println(player2.getPieces());
+
+            board.printBoard();
         }
 
         public PlayerColor getAnotherColor(PlayerColor color) {
