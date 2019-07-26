@@ -65,6 +65,21 @@ public class Board {
         boardPieces[piece.getCurrentCell().getX()][piece.getCurrentCell().getY()] = null;
     }
 
+    public boolean isAliveKing(PlayerColor color) {
+        for (int x = 0; x < WIGHT; x++){
+            for (int y = 0; y < HEIGHT; y++){
+                if(boardPieces[x][y] == null){
+                    continue;
+                }else {
+                    if(boardPieces[x][y].getClass().getSimpleName().equals("King") & boardPieces[x][y].getColor() == color){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     public void printBoard() {
         for (int y = boardPieces.length - 1; y >= 0; y--) {
             for (int x = 0; x < boardPieces.length * 11; x++) {
