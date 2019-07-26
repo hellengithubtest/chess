@@ -38,7 +38,7 @@ public final class Rook extends Piece {
             }
             if (board.isNotWithinTheBorders(nextX, nextY)) {
                 continue;
-            } else if (board.getBoardPieces()[nextX][nextY].getColor() == getColor() || board.getBoardPieces()[nextX][nextY].getClass().getSimpleName().equals("King")) {
+            } else if (board.getBoardPieces()[nextX][nextY].getColor() == getColor()) {
                 continue;
             } else {
                 valid.add(new Cell(nextX, nextY));

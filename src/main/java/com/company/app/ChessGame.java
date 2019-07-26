@@ -15,6 +15,9 @@ public class ChessGame {
         public void processTurn(Player player) {
             Random random = new Random();
             int count = player.getPieces().size();
+            if (player.getRandomPiece() == null){
+                board.setWin(true);
+            }
 
             player.checkAlivePieces(board.getDeletedPieces());
 
@@ -22,6 +25,10 @@ public class ChessGame {
             Piece randomPiece = null;
             do {
                 randomPiece = player.getRandomPiece();
+                if (player.getRandomPiece() == null){
+                    board.setWin(true);
+                    break;
+                }
                 validSteps = randomPiece.availableMoves(board);
                 count--;
             } while (count > 0 & validSteps.size() == 0);
