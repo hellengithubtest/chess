@@ -50,5 +50,4 @@ public final class Rook extends Piece {
     public String toString() {
         return "R " + this.getColor();
     }
-
 }

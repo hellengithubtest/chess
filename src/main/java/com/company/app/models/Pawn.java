@@ -37,5 +37,4 @@ public final class Pawn extends Piece {
     public String toString() {
         return "P " + this.getColor();
     }
-
 }

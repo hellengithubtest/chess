@@ -14,17 +14,16 @@ public class ChessGame {
 
         public void processTurn(Player player) {
             Random random = new Random();
+            int count = player.getPieces().size();
 
             player.checkAlivePieces(board.getDeletedPieces());
-            int count = player.getPieces().size();
+
             List<Cell> validSteps = new ArrayList<Cell>();
             Piece randomPiece = null;
-
             do {
                 randomPiece = player.getRandomPiece();
                 validSteps = randomPiece.availableMoves(board);
                 count--;
-
             } while (count > 0 & validSteps.size() == 0);
 
             if (count <= 0 & validSteps.size() == 0) {
@@ -32,7 +31,7 @@ public class ChessGame {
             } else {
                 Cell nextCell = validSteps.get(random.nextInt(validSteps.size()));
                 board.executeMove(randomPiece, nextCell);
-                System.out.println("Random piece " + randomPiece + " " + randomPiece.getCurrentCell() + "valid steps " + validSteps);
+                System.out.println("Random piece " + randomPiece + " " + randomPiece.getCurrentCell() + " valid steps " + validSteps);
                 System.out.println("The piece " + randomPiece + " Move to " + nextCell);
             }
             if (board.checkCheckMate(getAnotherColor(player.getColor()))) {

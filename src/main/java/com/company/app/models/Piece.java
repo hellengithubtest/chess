@@ -27,10 +27,7 @@ public abstract class Piece {
         return this.color;
     }
 
-    public List<Cell> availableMoves(Board board) {
-        List<Cell> two = new ArrayList<Cell>();
-        return two;
-    }
+    public abstract List<Cell> availableMoves(Board board);
 
     public boolean isOpponent(Piece piece) {
         return piece != null && this.color != piece.color;

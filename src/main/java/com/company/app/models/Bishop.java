@@ -16,12 +16,15 @@ public final class Bishop extends Piece {
 
     @Override
     public List<Cell> availableMoves(Board board) {
-        List<Cell> available = new ArrayList<Cell>();
-        List<Cell> valid = new ArrayList<Cell>();
-
         int bishopX = this.getCurrentCell().getX();
         int bishopY = this.getCurrentCell().getY();
 
+        List<Cell> available = new ArrayList<Cell>();
+        List<Cell> valid = new ArrayList<Cell>();
+
+        /*
+        get neighbour
+         */
         available.add(new Cell(bishopX + 1, bishopY + 1));
         available.add(new Cell(bishopX - 1, bishopY + 1));
         available.add(new Cell(bishopX - 1, bishopY - 1));

@@ -7,12 +7,11 @@ import com.company.app.PlayerColor;
 import java.util.ArrayList;
 import java.util.List;
 
-public final class King extends Piece {
+public final class King extends Piece{
 
     public King(Cell cell, PlayerColor color) {
         super(cell, color);
     }
-
 
     @Override
     public List<Cell> availableMoves(Board board) {
