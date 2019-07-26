@@ -34,10 +34,6 @@ public class ChessGame {
                 System.out.println("Random piece " + randomPiece + " " + randomPiece.getCurrentCell() + " valid steps " + validSteps);
                 System.out.println("The piece " + randomPiece + " Move to " + nextCell);
             }
-            if (board.checkCheckMate(getAnotherColor(player.getColor()))) {
-                System.out.println("CheckMate is true ");
-                board.setWin(true);
-            }
         }
 
         public void startGame() {
