@@ -26,13 +26,13 @@ public final class Rook extends Piece {
         available.add(new Cell(rookX, rookY + 1));
         available.add(new Cell(rookX, rookY - 1));
 
-        for (int i = 0; i < available.size(); i++) {
-            int nextX = available.get(i).getX();
-            int nextY = available.get(i).getY();
+        for (Cell cell : available) {
+            int nextX = cell.getX();
+            int nextY = cell.getY();
             while (!board.isNotWithinTheBorders(nextX, nextY) && board.getBoardPieces()[nextX][nextY] == null) {
                 valid.add(new Cell(nextX, nextY));
-                int diffX = rookX - available.get(i).getX();
-                int diffY = rookY - available.get(i).getY();
+                int diffX = rookX - cell.getX();
+                int diffY = rookY - cell.getY();
                 nextX = nextX - diffX;
                 nextY = nextY - diffY;
             }

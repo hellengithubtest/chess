@@ -85,12 +85,12 @@ public class Board {
         if (getAround.size() == 0) {
             return checkmate;
         }
-        for (int i = 0; i < getAround.size(); i++) {
-            if (boardPieces[getAround.get(i).getX()][getAround.get(i).getY()] != null) {
+        for (Cell cell : getAround) {
+            if (boardPieces[cell.getX()][cell.getY()] != null) {
                 checkmate = true;
                 return checkmate;
             } else {
-                Cell posible = getAround.get(i);
+                Cell posible = cell;
 
                 if (king.getCurrentCell().getX() == posible.getX() || king.getCurrentCell().getY() == posible.getY()) {
                     int diffX = king.getCurrentCell().getX() - posible.getX();

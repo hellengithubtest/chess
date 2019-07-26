@@ -17,6 +17,10 @@ public final class Queen extends Piece {
     public List<Cell> availableMoves(Board board) {
         List<Cell> available = new ArrayList<Cell>();
         List<Cell> valid = new ArrayList<Cell>();
+
+        int queenX = this.getCurrentCell().getX();
+        int queenY = this.getCurrentCell().getY();
+
         available.add(new Cell(this.getCurrentCell().getX() + 1, this.getCurrentCell().getY()));
         available.add(new Cell(this.getCurrentCell().getX() - 1, this.getCurrentCell().getY()));
         available.add(new Cell(this.getCurrentCell().getX(), this.getCurrentCell().getY() + 1));
@@ -33,8 +37,8 @@ public final class Queen extends Piece {
             int nextY = cell.getY();
             while (!board.isNotWithinTheBorders(nextX, nextY) && board.getBoardPieces()[nextX][nextY] == null) {
                 valid.add(new Cell(nextX, nextY));
-                int diffX = this.getCurrentCell().getX() - cell.getX();
-                int diffY = this.getCurrentCell().getY() - cell.getY();
+                int diffX = queenX - cell.getX();
+                int diffY = queenY - cell.getY();
                 nextX = nextX - diffX;
                 nextY = nextY - diffY;
             }
