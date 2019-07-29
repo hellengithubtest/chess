@@ -53,11 +53,11 @@ public final class Bishop extends Piece {
     }
 
     public String toString() {
-/*        if(this.getColor() == PlayerColor.WHITE){
+        if(this.getColor() == PlayerColor.WHITE){
             return "♗";
         } else {
             return "♝";
-        }*/
-        return "B " + this.getColor();
+        }
+        //return "B " + this.getColor();
     }
 }

@@ -2,7 +2,6 @@ package com.company.app;
 
 import com.company.app.models.Piece;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Board {
     private final int WIGHT = 8;
@@ -81,7 +80,7 @@ public class Board {
         return false;
     }
 
-    public void printBoard() {
+/*    public void printBoard() {
         for (int y = boardPieces.length - 1; y >= 0; y--) {
             for (int x = 0; x < boardPieces.length * 11; x++) {
                 if (x % 11 == 0) {
@@ -130,6 +129,42 @@ public class Board {
                 System.out.println(" The pieces is out of game: " + deletedPieces);
             }
 
+        }
+    }*/
+    public void printBoard() {
+        for (int y = boardPieces.length - 1; y >= 0; y--) {
+
+            for (int x = 0; x < boardPieces.length * 6; x++) {
+                if (x % 6 == 0) {
+                    System.out.print("|");
+                } else {
+                    System.out.print("_");
+                }
+            }
+            System.out.println("| ");
+            for (int x = 0; x < boardPieces.length * 6; x++) {
+                if (x % 6 == 0) {
+                    System.out.print("|");
+                } else {
+                    System.out.print(" ");
+                }
+            }
+            System.out.println("| ");
+            for (int x = 0; x < HEIGHT; x++) {
+
+                if (boardPieces[x][y] == null) {
+                    System.out.print("|     ");
+                } else {
+                    System.out.print("|  " + boardPieces[x][y] + "  ");
+                }
+                if (x == 7) {
+                    System.out.println( y );
+                    if (y == 0) {
+                        System.out.println("|_____|_____|_____|_____|_____|_____|_____|_____|");
+                        System.out.println("|  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |");
+                    }
+                }
+            }
         }
     }
 }
