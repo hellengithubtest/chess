@@ -1,8 +1,6 @@
 package com.company.app;
 
 import com.company.app.models.Piece;
-import com.company.app.observer.Board;
-import com.company.app.observer.Player;
 
 import java.util.ArrayList;
 import java.util.List;

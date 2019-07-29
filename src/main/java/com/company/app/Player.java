@@ -1,4 +1,4 @@
-package com.company.app.observer;
+package com.company.app;
 
 import com.company.app.PlayerColor;
 import com.company.app.factory.CreatePieces;
