@@ -1,10 +1,9 @@
 package com.company.app.models;
 
-import com.company.app.Board;
+import com.company.app.observer.Board;
 import com.company.app.Cell;
 import com.company.app.PlayerColor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Piece {

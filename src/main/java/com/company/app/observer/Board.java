@@ -1,20 +1,22 @@
-package com.company.app;
+package com.company.app.observer;
 
+import com.company.app.*;
 import com.company.app.models.Piece;
 import java.util.ArrayList;
 
-public class Board {
+public class Board implements Subject {
     private final int WIGHT = 8;
     private final int HEIGHT = 8;
     private Piece[][] boardPieces;
     private ArrayList<Piece> deletedPieces;
     private boolean win;
-    private static Board instance;
+    private ArrayList observers;
 
     public Board() {
         win = false;
         this.boardPieces = new Piece[WIGHT][HEIGHT];
         this.deletedPieces = new ArrayList<Piece>();
+        this.observers = new ArrayList();
     }
 
     public boolean getWin() {
@@ -80,6 +82,23 @@ public class Board {
         return false;
     }
 
+    public void registerObserver(Observer observer) {
+        observers.add(observer);
+    }
+
+    public void removeObserver(Observer observer) {
+        int i = observers.indexOf(observer);
+        if (i >= 0) {
+            observers.remove(i);
+        }
+    }
+
+    public void notifyObservers() {
+        for (int i = 0; i < observers.size(); i++) {
+            Observer observer = (Observer)observers.get(i);
+            observer.update(deletedPieces);
+        }
+    }
 /*    public void printBoard() {
         for (int y = boardPieces.length - 1; y >= 0; y--) {
             for (int x = 0; x < boardPieces.length * 11; x++) {

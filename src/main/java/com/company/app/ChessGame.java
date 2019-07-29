@@ -1,6 +1,8 @@
 package com.company.app;
 
 import com.company.app.models.Piece;
+import com.company.app.observer.Board;
+import com.company.app.observer.Player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +16,6 @@ public class ChessGame {
 
         public boolean processTurn(Player player) {
             Random random = new Random();
-
-            player.checkAlivePieces(board.getDeletedPieces());
             if(!board.isAliveKing(player.getColor())) {
                 board.setWin(true);
                 return true;
@@ -58,11 +58,13 @@ public class ChessGame {
             }
         }
 
-        public void initGame() {
+        public void initializeGame() {
             player1 = new Player(PlayerColor.WHITE);
             player2 = new Player(PlayerColor.BLACK);
 
             board = new Board();
+            board.registerObserver(player1);
+            board.registerObserver(player2);
 
             board.putAllPiecesFromPlayer(player1);
             System.out.println(player1.getPieces());

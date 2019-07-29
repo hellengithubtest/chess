@@ -1,15 +1,17 @@
-package com.company.app;
+package com.company.app.observer;
 
+import com.company.app.PlayerColor;
 import com.company.app.factory.CreatePieces;
 import com.company.app.factory.FactoryBlack;
 import com.company.app.factory.FactoryPiece;
 import com.company.app.factory.FactoryWhite;
 import com.company.app.models.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Player {
+public class Player implements Observer {
     private final PlayerColor color;
     private List<Piece> pieces = new ArrayList<Piece>();
 
@@ -45,9 +47,9 @@ public class Player {
         return pieces.get(random.nextInt(pieces.size()));
     }
 
-    public void checkAlivePieces(ArrayList<Piece> deleted) {
+    public void update(List<Piece> deletedPieces) {
         for (int i = 0; i < pieces.size(); i++) {
-            if (deleted.contains(pieces.get(i))) {
+            if (deletedPieces.contains(pieces.get(i))) {
                 pieces.remove(i);
             }
         }
