@@ -5,7 +5,6 @@ public final class Cell {
     private int y;
 
     public Cell(int x, int y) {
-        super();
         this.x = x;
         this.y = y;
     }

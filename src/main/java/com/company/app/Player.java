@@ -14,7 +14,6 @@ public class Player {
     private List<Piece> pieces = new ArrayList<Piece>();
 
     public Player(PlayerColor color) {
-        super();
         this.color = color;
         initializePieces();
     }
@@ -43,7 +42,6 @@ public class Player {
 
     public Piece getRandomPiece() {
         Random random = new Random();
-
         return pieces.get(random.nextInt(pieces.size()));
     }
 

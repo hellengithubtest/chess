@@ -10,7 +10,6 @@ import java.util.List;
 public final class Bishop extends Piece {
 
     public Bishop(Cell cell, PlayerColor color) {
-
         super(cell, color);
     }
 

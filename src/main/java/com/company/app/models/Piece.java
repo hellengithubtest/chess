@@ -12,7 +12,6 @@ public abstract class Piece {
     private final PlayerColor color;
 
     public Piece(Cell currentCell, PlayerColor color) {
-       super();
        this.currentCell = currentCell;
        this.color = color;
     }
