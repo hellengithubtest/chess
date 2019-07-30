@@ -15,21 +15,21 @@ public final class Queen extends Piece {
 
     @Override
     public List<Cell> availableMoves(Board board) {
-        List<Cell> available = new ArrayList<Cell>();
-        List<Cell> valid = new ArrayList<Cell>();
-
         int queenX = this.getCurrentCell().getX();
         int queenY = this.getCurrentCell().getY();
 
-        available.add(new Cell(this.getCurrentCell().getX() + 1, this.getCurrentCell().getY()));
-        available.add(new Cell(this.getCurrentCell().getX() - 1, this.getCurrentCell().getY()));
-        available.add(new Cell(this.getCurrentCell().getX(), this.getCurrentCell().getY() + 1));
-        available.add(new Cell(this.getCurrentCell().getX(), this.getCurrentCell().getY() - 1));
+        List<Cell> available = new ArrayList<Cell>();
+        List<Cell> valid = new ArrayList<Cell>();
 
-        available.add(new Cell(this.getCurrentCell().getX() + 1, this.getCurrentCell().getY() + 1));
-        available.add(new Cell(this.getCurrentCell().getX() - 1, this.getCurrentCell().getY() + 1));
-        available.add(new Cell(this.getCurrentCell().getX() - 1, this.getCurrentCell().getY() - 1));
-        available.add(new Cell(this.getCurrentCell().getX() + 1, this.getCurrentCell().getY() - 1));
+        available.add(new Cell(queenX + 1, queenY));
+        available.add(new Cell(queenX - 1, queenY));
+        available.add(new Cell(queenX, queenY + 1));
+        available.add(new Cell(queenX, queenY - 1));
+
+        available.add(new Cell(queenX + 1, queenY + 1));
+        available.add(new Cell(queenX - 1, queenY + 1));
+        available.add(new Cell(queenX - 1, queenY - 1));
+        available.add(new Cell(queenX + 1, queenY - 1));
 
 
         for (Cell cell : available) {

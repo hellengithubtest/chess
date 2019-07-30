@@ -15,11 +15,11 @@ public final class Rook extends Piece {
 
     @Override
     public List<Cell> availableMoves(Board board) {
-        List<Cell> available = new ArrayList<Cell>();
-        List<Cell> valid = new ArrayList<Cell>();
-
         int rookX = this.getCurrentCell().getX();
         int rookY = this.getCurrentCell().getY();
+        
+        List<Cell> available = new ArrayList<Cell>();
+        List<Cell> valid = new ArrayList<Cell>();
 
         available.add(new Cell(rookX + 1, rookY));
         available.add(new Cell(rookX - 1, rookY));

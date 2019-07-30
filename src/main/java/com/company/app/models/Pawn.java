@@ -15,13 +15,16 @@ public final class Pawn extends Piece {
 
     @Override
     public List<Cell> availableMoves(Board board) {
+        int pawnX = this.getCurrentCell().getX();
+        int pawnY = this.getCurrentCell().getY();
+
         List<Cell> available = new ArrayList<Cell>();
         List<Cell> valid = new ArrayList<Cell>();
 
-        available.add(new Cell(this.getCurrentCell().getX() + 1, this.getCurrentCell().getY()));
-        available.add(new Cell(this.getCurrentCell().getX() - 1, this.getCurrentCell().getY()));
-        available.add(new Cell(this.getCurrentCell().getX(), this.getCurrentCell().getY() + 1));
-        available.add(new Cell(this.getCurrentCell().getX(), this.getCurrentCell().getY() - 1));
+        available.add(new Cell(pawnX + 1, pawnY));
+        available.add(new Cell(pawnX - 1, pawnY));
+        available.add(new Cell(pawnX, pawnY + 1));
+        available.add(new Cell(pawnX, pawnY - 1));
 
         for (Cell cell : available) {
             int nextX = cell.getX();
