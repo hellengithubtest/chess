@@ -39,11 +39,11 @@ public final class Knight extends Piece {
     }
 
     public String toString() {
-        if(this.getColor() == PlayerColor.WHITE){
+/*        if(this.getColor() == PlayerColor.WHITE){
             return "♘";
         } else {
             return "♞";
-        }
-        //return "H " + this.getColor();
+        }*/
+        return "H " + this.getColor();
     }
 }

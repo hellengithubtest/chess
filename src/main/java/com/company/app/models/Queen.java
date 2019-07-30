@@ -54,11 +54,11 @@ public final class Queen extends Piece {
     }
 
     public String toString() {
-        if(this.getColor() == PlayerColor.WHITE){
+/*        if(this.getColor() == PlayerColor.WHITE){
             return "♕";
         } else {
             return "♛";
-        }
-        //return "Q " + this.getColor();
+        }*/
+        return "Q " + this.getColor();
     }
 }

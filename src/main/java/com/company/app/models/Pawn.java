@@ -35,11 +35,11 @@ public final class Pawn extends Piece {
     }
 
     public String toString() {
-        if(this.getColor() == PlayerColor.WHITE){
+/*        if(this.getColor() == PlayerColor.WHITE){
             return "♙";
         } else {
             return "♟";
-        }
-        //return "P " + this.getColor();
+        }*/
+        return "P " + this.getColor();
     }
 }

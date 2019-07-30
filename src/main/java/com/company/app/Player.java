@@ -1,58 +1,46 @@
 package com.company.app;
 
-import com.company.app.PlayerColor;
-import com.company.app.factory.CreatePieces;
 import com.company.app.factory.FactoryBlack;
 import com.company.app.factory.FactoryPiece;
 import com.company.app.factory.FactoryWhite;
 import com.company.app.models.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-public class Player implements Observer {
+public class Player implements PlayerI{
     private final PlayerColor color;
-    private List<Piece> pieces = new ArrayList<Piece>();
 
     public Player(PlayerColor color) {
         this.color = color;
-        initializePieces();
-    }
-
-    public List<Piece> getPieces() {
-        return pieces;
     }
 
     public PlayerColor getColor() {
         return this.color;
     }
 
-    public void initializePieces() {
-        FactoryPiece factory;
-        CreatePieces createPieces;
-        if (this.color == PlayerColor.WHITE) {
-            factory = new FactoryWhite();
-            createPieces = new CreatePieces(factory);
-            pieces = createPieces.getListPieces();
-            } else {
-            factory = new FactoryBlack();
-            createPieces = new CreatePieces(factory);
-            pieces = createPieces.getListPieces();
+    public void createPieces (Board board) {
+        int COUNT_OF_PAWNS = 8;
+        int COUNT_IN_PAIR = 2;
+
+        FactoryPiece factoryPiece = this.color == PlayerColor.WHITE ? new FactoryWhite() : new FactoryBlack();
+
+        for (int i = 0; i < COUNT_OF_PAWNS; i++) {
+            Piece pawn = factoryPiece.createPawn();
+            board.getBoardPieces()[pawn.getCurrentCell().getX()][pawn.getCurrentCell().getY()] = pawn;
         }
-    }
-
-    public Piece getRandomPiece() {
-        Random random = new Random();
-        return pieces.get(random.nextInt(pieces.size()));
-    }
-
-    public void update(List<Piece> deletedPieces) {
-        for (int i = 0; i < pieces.size(); i++) {
-            if (deletedPieces.contains(pieces.get(i))) {
-                pieces.remove(i);
-            }
+        for (int i = 0; i < COUNT_IN_PAIR; i++) {
+            Piece bishop = factoryPiece.createBishop();
+            board.getBoardPieces()[bishop.getCurrentCell().getX()][bishop.getCurrentCell().getY()] = bishop;
+            Piece knight = factoryPiece.createKnight();
+            board.getBoardPieces()[knight.getCurrentCell().getX()][knight.getCurrentCell().getY()] = knight;
+            Piece rook = factoryPiece.createRook();
+            board.getBoardPieces()[rook.getCurrentCell().getX()][rook.getCurrentCell().getY()] = rook;
         }
+        Piece king = factoryPiece.createKing();
+        board.getBoardPieces()[king.getCurrentCell().getX()][king.getCurrentCell().getY()] = king;
+        Piece queen = factoryPiece.createQueen();
+        board.getBoardPieces()[queen.getCurrentCell().getX()][queen.getCurrentCell().getY()] = queen;
     }
 
+    public PlayerColor getOpponentColor() {
+        return this.color == PlayerColor.WHITE ? PlayerColor.BLACK : PlayerColor.WHITE;
+    }
 }

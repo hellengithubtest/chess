@@ -1,44 +1,45 @@
 package com.company.app;
 
+import com.company.app.models.King;
 import com.company.app.models.Piece;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
-public class Board implements Subject {
+public class Board {
     private final int WIGHT = 8;
     private final int HEIGHT = 8;
     private Piece[][] boardPieces;
-    private boolean win;
-    private ArrayList observers;
 
     public Board() {
-        win = false;
         this.boardPieces = new Piece[WIGHT][HEIGHT];
-        this.observers = new ArrayList();
     }
 
-    public boolean getWin() {
-        return this.win;
-    }
-
-    public void setWin(boolean win) {
-        this.win = win;
-    }
     public Piece[][] getBoardPieces() {
         return boardPieces;
     }
 
-    public void putAllPiecesFromPlayer(Player player) {
-        for (int i = 0; i < player.getPieces().size(); i++) {
-            Piece piece = player.getPieces().get(i);
-            boardPieces[piece.getCurrentCell().getX()][piece.getCurrentCell().getY()] = piece;
+    public List<Piece> getAvailablePieces(PlayerColor color) {
+        List<Piece> pieces = new ArrayList<Piece>();
+        for (int x = 0; x < WIGHT; x++){
+            for (int y = 0; y < HEIGHT; y++){
+                if(boardPieces[x][y] == null){
+                    continue;
+                }else {
+                    if(boardPieces[x][y].getColor() == color){
+                        pieces.add(boardPieces[x][y]);
+                    }
+                }
+            }
         }
+        return pieces;
     }
 
-    public List<Piece> availablePieces(Player player) {
-        List<Piece> available = new ArrayList<Piece>();
-        return
+    public Piece getRandomPiece(PlayerColor color) {
+        Random random = new Random();
+        List<Piece> pieces = getAvailablePieces(color);
+        return pieces.get(random.nextInt(pieces.size()));
     }
 
     public boolean isNotWithinTheBorders(int x, int y) {
@@ -62,7 +63,7 @@ public class Board implements Subject {
         boardPieces[piece.getCurrentCell().getX()][piece.getCurrentCell().getY()] = null;
     }
 
-    public boolean isAliveKing(PlayerColor color) {
+    public boolean isKingAlive(PlayerColor color) {
         for (int x = 0; x < WIGHT; x++){
             for (int y = 0; y < HEIGHT; y++){
                 if(boardPieces[x][y] == null){
@@ -77,18 +78,7 @@ public class Board implements Subject {
         return false;
     }
 
-    public void registerObserver(Observer observer) {
-        observers.add(observer);
-    }
-
-    public void removeObserver(Observer observer) {
-        int i = observers.indexOf(observer);
-        if (i >= 0) {
-            observers.remove(i);
-        }
-    }
-
-/*    public void printBoard() {
+    public void printBoard() {
         for (int y = boardPieces.length - 1; y >= 0; y--) {
             for (int x = 0; x < boardPieces.length * 11; x++) {
                 if (x % 11 == 0) {
@@ -134,12 +124,11 @@ public class Board implements Subject {
 
                 }
                 System.out.println();
-                System.out.println(" The pieces is out of game: " + deletedPieces);
             }
 
         }
-    }*/
-    public void printBoard() {
+    }
+    /*public void printBoard() {
         for (int y = boardPieces.length - 1; y >= 0; y--) {
 
             for (int x = 0; x < boardPieces.length * 6; x++) {
@@ -174,5 +163,5 @@ public class Board implements Subject {
                 }
             }
         }
-    }
+    }*/
 }

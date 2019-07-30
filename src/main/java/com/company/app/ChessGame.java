@@ -1,6 +1,8 @@
 package com.company.app;
 
 import com.company.app.models.Piece;
+import com.company.app.models.PlayerI;
+import sun.tracing.dtrace.DTraceProviderFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,20 +14,13 @@ public class ChessGame {
         private Player player2;
 
 
-        public boolean processTurn(Player player) {
+        public void processTurn(Player player) {
             Random random = new Random();
-            if(!board.isAliveKing(player.getColor())) {
-                board.setWin(true);
-                return true;
-            }
-            board.printBoard();
-            int count = player.getPieces().size();
-
             List<Cell> validSteps = new ArrayList<Cell>();
             Piece randomPiece = null;
 
-            while(count != 0){
-                randomPiece = player.getRandomPiece();
+            while(board.getAvailablePieces(player.getColor()) != null){
+                randomPiece = board.getRandomPiece(player.getColor());
                 validSteps = randomPiece.availableMoves(board);
                 while (validSteps.size() != 0){
                     System.out.println(validSteps.size());
@@ -33,51 +28,50 @@ public class ChessGame {
                     System.out.println("Random piece " + randomPiece + " " + randomPiece.getCurrentCell() + " valid steps " + validSteps);
                     board.executeMove(randomPiece, nextCell);
                     System.out.println("The piece " + randomPiece + " Move to " + nextCell);
-                    return true;
+                    return;
                 }
 
             }
-            board.setWin(true);
-            return true;
+            return;
         }
 
         public void startGame() {
+            Player player = player1;
+            processTurn(player);
             while (true) {
-                processTurn(player1);
-                if (this.board.getWin()) {
-                    System.out.println("Player 2 is win");
-                    break;
-                    }
-                processTurn(player2);
-                if (this.board.getWin()) {
-                    System.out.println("Player 1 is win");
+                player = (player.getColor() == PlayerColor.WHITE ? player2 : player1);
+                processTurn(player);
+                if (isGameContinue(player)) {
+                    continue;
+                } else {
                     break;
                 }
             }
         }
 
         public void initializeGame() {
-            player1 = new Player(PlayerColor.WHITE);
-            player2 = new Player(PlayerColor.BLACK);
+            PlayerI player1 = new Player(PlayerColor.WHITE);
+            PlayerI player2 = new Player(PlayerColor.BLACK);
 
             board = new Board();
-            board.registerObserver(player1);
-            board.registerObserver(player2);
 
-            board.putAllPiecesFromPlayer(player1);
-            System.out.println(player1.getPieces());
-
-            board.putAllPiecesFromPlayer(player2);
-            System.out.println(player2.getPieces());
+            player1.createPieces(board);
+            player2.createPieces(board);
 
             board.printBoard();
         }
 
-        public PlayerColor getAnotherColor(PlayerColor color) {
-            if (color == player1.getColor()) {
-                return player2.getColor();
+        public boolean isGameContinue(Player player) {
+            //if king of opponent is removed and if the opponent haven't available pieces
+            if (!board.isKingAlive(player.getOpponentColor()) || board.getAvailablePieces(player.getOpponentColor()).size() == 0) {
+                System.out.println("The " + player.getColor() + " is win");
+                return false;
+            } else if (board.getAvailablePieces(player.getOpponentColor()).size() == 1){
+                //if the available pieces is one
+                //check if the piece is can move
+                return board.getRandomPiece(player.getOpponentColor()).availableMoves(board).size() >= 1 ? true : false;
             } else {
-                return player1.getColor();
+                return true;
             }
         }
     }
