@@ -40,11 +40,11 @@ public final class King extends Piece{
     }
 
     public String toString() {
-/*        if(this.getColor() == PlayerColor.WHITE){
+        if(this.getColor() == PlayerColor.WHITE){
             return "♔";
         } else {
             return "♚";
-        }*/
-        return "K " + this.getColor();
+        }
+        //return "K " + this.getColor();
     }
 }

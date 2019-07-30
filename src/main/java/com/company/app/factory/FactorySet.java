@@ -1,8 +1,10 @@
-package com.company.app.builder;
+package com.company.app.factory;
 
 import com.company.app.PlayerColor;
-import com.company.app.models.*;
+import com.company.app.models.Piece;
+
+import java.util.List;
 
 public interface FactorySet {
-    void createSet(PlayerColor color);
+    List<Piece> createSet(PlayerColor color);
 }

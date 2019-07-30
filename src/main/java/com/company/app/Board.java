@@ -20,6 +20,12 @@ public class Board {
         return boardPieces;
     }
 
+    public void loadSetOfPieces(List<Piece> setOfPieces) {
+        for (int i = 0; i < setOfPieces.size(); i++) {
+            boardPieces[setOfPieces.get(i).getCurrentCell().getX()][setOfPieces.get(i).getCurrentCell().getY()] = setOfPieces.get(i);
+        }
+    }
+
     public List<Piece> getAvailablePieces(PlayerColor color) {
         List<Piece> pieces = new ArrayList<Piece>();
         for (int x = 0; x < WIGHT; x++){
@@ -77,7 +83,7 @@ public class Board {
         }
         return false;
     }
-
+/*
     public void printBoard() {
         for (int y = boardPieces.length - 1; y >= 0; y--) {
             for (int x = 0; x < boardPieces.length * 11; x++) {
@@ -127,8 +133,8 @@ public class Board {
             }
 
         }
-    }
-    /*public void printBoard() {
+    }*/
+    public void printBoard() {
         for (int y = boardPieces.length - 1; y >= 0; y--) {
 
             for (int x = 0; x < boardPieces.length * 6; x++) {
@@ -163,5 +169,5 @@ public class Board {
                 }
             }
         }
-    }*/
+    }
 }
