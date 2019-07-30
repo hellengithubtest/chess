@@ -27,10 +27,6 @@ public abstract class Piece {
 
     public abstract List<Cell> availableMoves(Board board);
 
-    public boolean isOpponent(Piece piece) {
-        return piece != null && this.color != piece.color;
-    }
-
     public String toString() {
         return "Current cell: " + currentCell + " Color: " + color;
     }

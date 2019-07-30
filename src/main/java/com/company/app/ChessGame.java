@@ -20,7 +20,6 @@ public class ChessGame {
                 randomPiece = board.getRandomPiece(color);
                 validSteps = randomPiece.availableMoves(board);
                 while (validSteps.size() != 0){
-                    System.out.println(validSteps.size());
                     Cell nextCell = validSteps.get(random.nextInt(validSteps.size()));
                     System.out.println("Random piece " + randomPiece + " " + randomPiece.getCurrentCell() + " valid steps " + validSteps);
                     board.executeMove(randomPiece, nextCell);
